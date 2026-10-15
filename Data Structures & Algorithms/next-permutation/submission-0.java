@@ -1,0 +1,40 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 2;
+
+        // 1. Find the dip
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+
+        // 2. Find the next bigger element and swap
+        if (i >= 0) {
+            int j = nums.length - 1;
+
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+
+            swap(nums, i, j);
+        }
+
+        // 3. Reverse the suffix
+        reverse(nums, i + 1, nums.length - 1);
+    }
+
+    // Swap two elements
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    // Reverse a portion of the array
+    private void reverse(int[] nums, int left, int right) {
+        while (left < right) {
+            swap(nums, left, right);
+            left++;
+            right--;
+        }
+    }
+}
